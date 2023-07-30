@@ -6,4 +6,6 @@ const contactsAddSchema = Joi.object({
   phone: Joi.string().required(),
 });
 
-export default contactsAddSchema;
+export default {
+  contactsAddSchema,
+};
