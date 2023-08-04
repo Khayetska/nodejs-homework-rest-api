@@ -1,5 +1,10 @@
 import express from "express";
-import controllers from "../../controllers/authController.js";
+import {
+  signup,
+  login,
+  getCurrent,
+  logout,
+} from "../../controllers/auth/index.js";
 import { validateBody } from "../../decorators/index.js";
 import {
   userLoginSchema,
@@ -9,9 +14,9 @@ import { authenticate } from "../../middlewares/index.js";
 
 const authRouter = express.Router();
 
-authRouter.post("/signup", validateBody(userSignupSchema), controllers.signup);
-authRouter.post("/login", validateBody(userLoginSchema), controllers.login);
-authRouter.get("/current", authenticate, controllers.getCurrent);
-authRouter.post("/logout", authenticate, controllers.logout);
+authRouter.post("/signup", validateBody(userSignupSchema), signup);
+authRouter.post("/login", validateBody(userLoginSchema), login);
+authRouter.get("/current", authenticate, getCurrent);
+authRouter.post("/logout", authenticate, logout);
 
 export default authRouter;
