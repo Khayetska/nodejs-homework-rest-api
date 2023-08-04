@@ -4,6 +4,9 @@ import { emailRegexp } from "../constants/user-constants.js";
 
 const userSchema = new Schema(
   {
+    name: {
+      type: String,
+    },
     password: {
       type: String,
       minlength: 7,
@@ -11,8 +14,8 @@ const userSchema = new Schema(
     },
     email: {
       type: String,
-      match: emailRegexp,
       required: [true, "Email is required"],
+      match: emailRegexp,
       unique: true,
     },
     subscription: {
