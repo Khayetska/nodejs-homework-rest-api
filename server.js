@@ -1,9 +1,6 @@
 import mongoose from "mongoose";
-import dotenv from "dotenv";
+import "dotenv/config";
 import app from "./app.js";
-// password = 28TCTbqW1iBMhlq9
-
-dotenv.config();
 
 const { DB_HOST, PORT } = process.env;
 
