@@ -1,31 +1,39 @@
 import express from "express";
-import controllers from "../../controllers/contactsController.js";
+import {
+  getAll,
+  getById,
+  add,
+  updateById,
+  updateStatusContact,
+  deleteById,
+} from "../../controllers/contacts/index.js";
 import { validateBody } from "../../decorators/index.js";
 import {
   contactsAddSchema,
   contactUpdateFavoriteSchema,
 } from "../../schemas/contactsSchemas.js";
-import { isEmptyBody, isValidId } from "../../middlewares/index.js";
+import {
+  authenticate,
+  isEmptyBody,
+  isValidId,
+} from "../../middlewares/index.js";
 
 const contactsRouter = express.Router();
 
-contactsRouter.get("/", controllers.getAll);
+contactsRouter.use(authenticate);
 
-contactsRouter.get("/:id", isValidId, controllers.getById);
+contactsRouter.get("/", getAll);
 
-contactsRouter.post(
-  "/",
-  isEmptyBody,
-  validateBody(contactsAddSchema),
-  controllers.add
-);
+contactsRouter.get("/:id", isValidId, getById);
+
+contactsRouter.post("/", isEmptyBody, validateBody(contactsAddSchema), add);
 
 contactsRouter.put(
   "/:id",
   isValidId,
   isEmptyBody,
   validateBody(contactsAddSchema),
-  controllers.updateById
+  updateById
 );
 
 contactsRouter.patch(
@@ -33,9 +41,9 @@ contactsRouter.patch(
   isValidId,
   isEmptyBody,
   validateBody(contactUpdateFavoriteSchema),
-  controllers.updateStatusContact
+  updateStatusContact
 );
 
-contactsRouter.delete("/:id", isValidId, controllers.deleteById);
+contactsRouter.delete("/:id", isValidId, deleteById);
 
 export default contactsRouter;
